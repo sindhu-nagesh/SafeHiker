@@ -9,7 +9,7 @@ namespace SafeHikerService.Controllers
     {
         public ReturnCode Post(string userEmail, [FromBody] HikeDataModel data)
         {
-            AzureStorageServiceClient storageClient = ServiceFactory.GetStorageClient()
+            AzureStorageServiceClient storageClient = ServiceFactory.GetStorageClient();
             if (storageClient.HikeStorage.HasEntity())
             {
                 return ReturnCode.Duplicate;
