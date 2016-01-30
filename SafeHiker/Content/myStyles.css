@@ -1,0 +1,95 @@
+﻿.image {
+    background-image: url(../Images/mountain1.jpg);
+    background-size: cover;
+}
+
+.fitpage {
+    height: 100vh;
+}
+
+.header1 {
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 80px;
+    font-size: 50px;
+    font-weight: 200;
+    line-height: 2.1428571435;
+    color: black;
+}
+
+.center {
+    text-align: center;
+}
+
+.tophalf {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 30%;
+    background-image: url(../Images/lake1.jpg);
+    background-size: cover;
+    text-align: center;
+    color: black;
+}
+
+.bottomhalf {
+    position: absolute;
+    top: 70%;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: black;
+    text-align: center;
+    color: gray;
+}
+
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.lefthalf {
+    position: absolute;
+    top: 0;
+    right: 70%;
+    left: 0;
+    bottom: 0;
+    background-image: url(../Images/green1.png);
+    background-size: cover;
+}
+
+.righthalf {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 30%;
+    bottom: 0;
+    background-color: antiquewhite;
+}
+
+.header2 {
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 30px;
+    font-weight: 200;
+    line-height: 2.1428571435;
+    color: black;
+}
+
+.centerbox {
+    position: absolute;
+    width: 60%;
+    height: 40%;
+    left: 20%;
+    top: 15%;
+}
