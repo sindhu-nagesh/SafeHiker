@@ -8,11 +8,13 @@ namespace Storage
         private AzureDataStorageService UpcomingHikeStorage { get; }
         private AzureDataStorageService CompletedHikeStorage { get; }
         private AzureDataStorageService UserDataStorage { get; }
+        private AzureDataStorageService UserHikesStorage { get; }
 
-        public AzureStorageServiceClient(string storageAccountName, string upcomingHikeTableName, string completedHikeTableName, string userTableName)
+        public AzureStorageServiceClient(string storageAccountName, string upcomingHikeTableName, string completedHikeTableName, string userHikesTableName, string userTableName)
         {
             UpcomingHikeStorage = new AzureDataStorageService(storageAccountName, upcomingHikeTableName);
             CompletedHikeStorage = new AzureDataStorageService(storageAccountName, completedHikeTableName);
+            UserDataStorage = new AzureDataStorageService(storageAccountName, userTableName);
             UserDataStorage = new AzureDataStorageService(storageAccountName, userTableName);
         }
 
@@ -28,6 +30,9 @@ namespace Storage
 
                 case StorageType.UserData:
                     return UserDataStorage;
+
+                case StorageType.UserHikesData:
+                    return UserHikesStorage;
 
                 default:
                     return null;

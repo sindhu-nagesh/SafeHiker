@@ -4,6 +4,7 @@
     {
         UpcomingHike,
         CompletedHike,
-        UserData
+        UserData,
+        UserHikesData
     }
 }

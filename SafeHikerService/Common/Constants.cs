@@ -5,6 +5,7 @@
         public const string StorageAccountName = "";
         public const string UpcomingHikesTableName = "";
         public const string CompletedHikesTableName = "";
+        public const string UserHikesTableName = "";
         public const string UserTableName = "";
     }
 }
