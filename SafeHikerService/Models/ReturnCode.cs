@@ -3,6 +3,7 @@
     public enum ReturnCode
     {
         Success,
-        Duplicate
+        Duplicate,
+        Error
     }
 }

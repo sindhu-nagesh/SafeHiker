@@ -9,7 +9,7 @@ namespace SafeHikerService.Factory
 
         static ServiceFactory()
         {
-            _storageClient = new AzureStorageServiceClient(Constants.StorageAccountName, Constants.HikeTableName, Constants.UserTableName);
+            _storageClient = new AzureStorageServiceClient(Constants.StorageAccountName, Constants.UpcomingHikesTableName, Constants.CompletedHikesTableName, Constants.UserTableName);
         }
 
         public static AzureStorageServiceClient GetStorageClient()

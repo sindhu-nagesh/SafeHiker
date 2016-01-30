@@ -1,17 +1,37 @@
-﻿using Storage.impl;
+﻿using SafeHikerService.Models;
+using Storage.impl;
 
 namespace Storage
 {
     public class AzureStorageServiceClient
     {
-        public AzureDataStorageService HikeStorage { get; set; }
+        private AzureDataStorageService UpcomingHikeStorage { get; }
+        private AzureDataStorageService CompletedHikeStorage { get; }
+        private AzureDataStorageService UserDataStorage { get; }
 
-        public AzureDataStorageService UserStorage { get; set; }
-
-        public AzureStorageServiceClient(string storageAccountName, string hikeTableName, string userTableName)
+        public AzureStorageServiceClient(string storageAccountName, string upcomingHikeTableName, string completedHikeTableName, string userTableName)
         {
-            HikeStorage = new AzureDataStorageService(storageAccountName, hikeTableName);
-            UserStorage = new AzureDataStorageService(storageAccountName, userTableName);
+            UpcomingHikeStorage = new AzureDataStorageService(storageAccountName, upcomingHikeTableName);
+            CompletedHikeStorage = new AzureDataStorageService(storageAccountName, completedHikeTableName);
+            UserDataStorage = new AzureDataStorageService(storageAccountName, userTableName);
+        }
+
+        public AzureDataStorageService GetStorage(StorageType type)
+        {
+            switch (type)
+            {
+                case StorageType.CompletedHike:
+                    return CompletedHikeStorage;
+
+                case StorageType.UpcomingHike:
+                    return UpcomingHikeStorage;
+
+                case StorageType.UserData:
+                    return UserDataStorage;
+
+                default:
+                    return null;
+            }
         }
     }
 }
