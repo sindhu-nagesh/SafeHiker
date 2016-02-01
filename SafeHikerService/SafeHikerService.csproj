@@ -273,7 +273,9 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HikeDataModel.cs" />
+    <Compile Include="Models\HikeStatus.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\NotificationType.cs" />
     <Compile Include="Models\NotifyType.cs" />
     <Compile Include="Models\ReturnCode.cs" />
     <Compile Include="Models\UserDataModel.cs" />
@@ -283,6 +285,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="TableEntities\HikeDataEntity.cs" />
     <Compile Include="TableEntities\UserDataEntity.cs" />
+    <Compile Include="TableEntities\UserHikeEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

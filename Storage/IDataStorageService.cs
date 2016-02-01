@@ -11,7 +11,7 @@ namespace Storage
 
         bool DeleteEntity<T>(T entity);
 
-        TableResult GetEntity<T>(T entity) where T : TableEntity;
+        T GetEntity<T>(T entity) where T : TableEntity;
 
         List<T> GetEntities<T>(string partitionKey) where T : TableEntity, new();
 

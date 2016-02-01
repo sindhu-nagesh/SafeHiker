@@ -4,6 +4,7 @@
     {
         Success,
         Duplicate,
+        DoesNotExist,
         Error
     }
 }

@@ -18,23 +18,27 @@ namespace SafeHikerService.Controllers
             StorageClient = ServiceFactory.GetStorageClient();
         }
 
-        public ReturnCode Post(string userEmail, [FromBody] HikeDataModel hikeData)
+        public ReturnCode Post(string userId, [FromBody] HikeDataModel hikeData)
         {
-            var storageClient = StorageClient.GetStorage(StorageType.UpcomingHike);
-            var notifyUserEntity = new HikeDataEntity(userEmail, hikeData, NotifyType.NotifyUser);
-            var notifyEmergencyContactEntity = new HikeDataEntity(userEmail, hikeData, NotifyType.NotifyEmergencyContact);
-            if (storageClient.HasEntity(notifyUserEntity) ||
-                StorageClient.GetStorage(StorageType.UpcomingHike).HasEntity(notifyEmergencyContactEntity))
+            var hikeDataStorageClient = StorageClient.GetStorage(StorageType.UpcomingHike);
+            var userHikeStorageClient = StorageClient.GetStorage(StorageType.UserHikesData);
+            var notifyUserEntity = new HikeDataEntity(userId, hikeData, NotifyType.NotifyUser);
+            var notifyEmergencyContactEntity = new HikeDataEntity(userId, hikeData, NotifyType.NotifyEmergencyContact);
+            var userHikeEntity = new UserHikeEntity(userId, HikeStatus.Upcoming, hikeData);
+            if (hikeDataStorageClient.HasEntity(notifyUserEntity) ||
+                hikeDataStorageClient.HasEntity(notifyEmergencyContactEntity) ||
+               userHikeStorageClient.HasEntity(userHikeEntity))
             {
                 return ReturnCode.Duplicate;
             }
-            storageClient.InsertEntity(notifyUserEntity);
-            storageClient.InsertEntity(notifyEmergencyContactEntity);
+            hikeDataStorageClient.InsertEntity(notifyUserEntity);
+            hikeDataStorageClient.InsertEntity(notifyEmergencyContactEntity);
+            userHikeStorageClient.InsertEntity(userHikeEntity);
             return ReturnCode.Success;
         }
 
         public List<HikeDataModel> Get(string userId, string type)
-            {
+        {
             var partitionKey = userId + " " + type;
             var storageType = (StorageType)Enum.Parse(typeof(StorageType), type);
             var entities = StorageClient.GetStorage(storageType).GetEntities<HikeDataEntity>(partitionKey);

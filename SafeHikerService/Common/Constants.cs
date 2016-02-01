@@ -2,10 +2,9 @@
 {
     public static class Constants
     {
-        public const string StorageAccountName = "";
-        public const string UpcomingHikesTableName = "";
-        public const string CompletedHikesTableName = "";
-        public const string UserHikesTableName = "";
-        public const string UserTableName = "";
+        public const string StorageAccountName = "safehikerstorage";
+        public const string UpcomingHikesTableName = "UpcomingHikes";
+        public const string UserHikesTableName = "UserHikes";
+        public const string UserInfoTableName = "UserInfo";
     }
 }

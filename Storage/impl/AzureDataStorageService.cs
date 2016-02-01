@@ -56,6 +56,17 @@ namespace Storage.impl
             return result;
         }
 
+        public T GetEntity<T>(T entity) where T : TableEntity
+        {
+            if (Table.Exists())
+            {
+                TableOperation op = TableOperation.Retrieve<T>(entity.PartitionKey, entity.RowKey);
+                TableResult retrivedResult = Table.Execute(op);
+                return (T)retrivedResult.Result;
+            }
+            return null;
+        }
+
         public List<T> GetEntities<T>(string partitionKey) where T : TableEntity, new()
         {
             if (Table.Exists())
@@ -75,20 +86,10 @@ namespace Storage.impl
             return null;
         }
 
-        public TableResult GetEntity<T>(T entity) where T : TableEntity
-        {
-            if (Table.Exists())
-            {
-                TableOperation op = TableOperation.Retrieve<T>(entity.PartitionKey, entity.RowKey);
-                return Table.Execute(op);
-            }
-            return null;
-        }
-
         public bool HasEntity(TableEntity tableEntity)
         {
             var entity = GetEntity(tableEntity);
-            return (entity.Result != null);
+            return (entity != null);
         }
 
         private bool InsertEntity(TableEntity e)
@@ -100,6 +101,7 @@ namespace Storage.impl
 
         private bool UpdateEntity(TableEntity e)
         {
+            //TODO: change to replace operation.
             TableOperation op = TableOperation.InsertOrReplace(e);
             var entity = Table.Execute(op);
             return (entity.Result != null);

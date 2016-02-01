@@ -5,8 +5,8 @@ namespace SafeHikerService.TableEntities
 {
     public class HikeDataEntity : TableEntity
     {
-        public string UserEmail { get; set; }
         public string HikeName { get; set; }
+        public string UserEmail { get; set; }
         public string EmergencyEmail1 { get; set; }
         public string EmergencyEmail2 { get; set; }
         public string StartDateAndTime { get; set; }
@@ -17,12 +17,12 @@ namespace SafeHikerService.TableEntities
         {
         }
 
-        public HikeDataEntity(string userId, HikeDataModel hikeData, NotifyType type)
+        public HikeDataEntity(string userId, HikeDataModel hikeData, NotifyType notifyType)
         {
-            PartitionKey = type == NotifyType.NotifyUser ? EndDateAndTime : NotifyEmergencyContactDateAndTime;
+            PartitionKey = notifyType == NotifyType.NotifyUser ? EndDateAndTime : NotifyEmergencyContactDateAndTime;
             RowKey = userId;
-            UserEmail = hikeData.UserEmail;
             HikeName = hikeData.HikeName;
+            UserEmail = hikeData.UserEmail;
             EmergencyEmail1 = hikeData.EmergencyEmail1;
             EmergencyEmail2 = hikeData.EmergencyEmail2;
             StartDateAndTime = hikeData.StartDateAndTime;
