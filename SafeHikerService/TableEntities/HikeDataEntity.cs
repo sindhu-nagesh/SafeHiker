@@ -5,42 +5,27 @@ namespace SafeHikerService.TableEntities
 {
     public class HikeDataEntity : TableEntity
     {
-        public string HikeName { get; set; }
-        public string UserEmail { get; set; }
-        public string EmergencyEmail1 { get; set; }
-        public string EmergencyEmail2 { get; set; }
-        public string StartDateAndTime { get; set; }
-        public string EndDateAndTime { get; set; }
-        public string NotifyEmergencyContactDateAndTime { get; set; }
+        private string HikeName { get; set; }
+        private string EmergencyEmail1 { get; set; }
+        private string EmergencyEmail2 { get; set; }
+        private string StartDateAndTime { get; set; }
+        private string EndDateAndTime { get; set; }
+        private string NotifyEmergencyContactDateAndTime { get; set; }
 
         public HikeDataEntity()
         {
         }
 
-        public HikeDataEntity(string userId, HikeDataModel hikeData, NotifyType notifyType)
+        public HikeDataEntity(string userEmail, string notifyTime, HikeDataModel hikeData)
         {
-            PartitionKey = notifyType == NotifyType.NotifyUser ? EndDateAndTime : NotifyEmergencyContactDateAndTime;
-            RowKey = userId;
+            PartitionKey = notifyTime;
+            RowKey = userEmail;
             HikeName = hikeData.HikeName;
-            UserEmail = hikeData.UserEmail;
             EmergencyEmail1 = hikeData.EmergencyEmail1;
             EmergencyEmail2 = hikeData.EmergencyEmail2;
             StartDateAndTime = hikeData.StartDateAndTime;
             EndDateAndTime = hikeData.EndDateAndTime;
             NotifyEmergencyContactDateAndTime = hikeData.NotifyEmergencyContactDateAndTime;
-        }
-
-        public HikeDataModel ToHikeDataModel()
-        {
-            return new HikeDataModel
-            {
-                HikeName = HikeName,
-                EmergencyEmail1 = EmergencyEmail1,
-                EmergencyEmail2 = EmergencyEmail2,
-                StartDateAndTime = StartDateAndTime,
-                EndDateAndTime = EndDateAndTime,
-                NotifyEmergencyContactDateAndTime = NotifyEmergencyContactDateAndTime
-            };
         }
     }
 }

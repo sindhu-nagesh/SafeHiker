@@ -18,7 +18,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44301</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -275,8 +275,6 @@
     <Compile Include="Models\HikeDataModel.cs" />
     <Compile Include="Models\HikeStatus.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\NotificationType.cs" />
-    <Compile Include="Models\NotifyType.cs" />
     <Compile Include="Models\ReturnCode.cs" />
     <Compile Include="Models\UserDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -284,6 +282,8 @@
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="TableEntities\HikeDataEntity.cs" />
+    <Compile Include="TableEntities\NotifyEmergencyHikeDataEntity.cs" />
+    <Compile Include="TableEntities\NotifyUserHikeDataEntity.cs" />
     <Compile Include="TableEntities\UserDataEntity.cs" />
     <Compile Include="TableEntities\UserHikeEntity.cs" />
   </ItemGroup>
@@ -320,7 +320,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.0.js" />
     <Content Include="Scripts\jquery-2.2.0.min.js" />
@@ -387,7 +386,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>9387</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9387/</IISUrl>
+          <IISUrl>https://localhost:44301/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

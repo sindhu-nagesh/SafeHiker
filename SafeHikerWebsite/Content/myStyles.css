@@ -59,9 +59,9 @@
 
 .lefthalf {
     position: absolute;
-    top: 0;
-    right: 70%;
     left: 0;
+    right: 70%;
+    top: 0;
     bottom: 0;
     background-image: url(../Images/green1.png);
     background-size: cover;
@@ -69,10 +69,10 @@
 
 .righthalf {
     position: absolute;
-    top: 0;
     right: 0;
-    left: 30%;
+    top: 0;
     bottom: 0;
+    left: 30%;
     background-color: antiquewhite;
 }
 

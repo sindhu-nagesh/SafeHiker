@@ -2,6 +2,7 @@
 using SafeHikerService.Models;
 using SafeHikerService.TableEntities;
 using Storage;
+using System.Web;
 using System.Web.Http;
 
 namespace SafeHikerService.Controllers
@@ -15,42 +16,50 @@ namespace SafeHikerService.Controllers
             StorageClient = ServiceFactory.GetStorageClient();
         }
 
-        public ReturnCode Post([FromBody] UserDataModel userData)
+        // Add user data for a user
+        public ReturnCode Post(string userEmail, [FromBody] UserDataModel userData)
         {
             var userDataStorageClient = StorageClient.GetStorage(StorageType.UserData);
-            var userDataEntity = new UserDataEntity(userData);
-            if (userDataStorageClient.HasEntity(userDataEntity))
+            if (userDataStorageClient.HasEntity<UserDataEntity>(userEmail))
             {
                 return ReturnCode.Duplicate;
             }
-
-            userDataStorageClient.InsertEntity(userDataEntity);
-            return ReturnCode.Success;
+            var userDataEntity = new UserDataEntity(userEmail, userData);
+            var result = userDataStorageClient.InsertEntity(userDataEntity);
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
+            return result ? ReturnCode.Success : ReturnCode.Error;
         }
 
-        public ReturnCode Put([FromBody] UserDataModel userData)
+        // Update user data for a user
+        public ReturnCode Put(string userEmail, [FromBody] UserDataModel userData)
         {
             var userDataStorageClient = StorageClient.GetStorage(StorageType.UserData);
-            var userDataEntity = new UserDataEntity(userData);
-            var retrievedEntity = userDataStorageClient.GetEntity(userDataEntity);
-            if (retrievedEntity == null)
+            var userDataEntity = userDataStorageClient.GetEntity(new UserDataEntity(userEmail));
+            if (userDataEntity == null)
             {
                 return ReturnCode.DoesNotExist;
             }
-
-            bool result = userDataStorageClient.UpdateEntity(retrievedEntity);
-
-            return result == true ? ReturnCode.Success : ReturnCode.Error;
+            userDataEntity.UpdateEntityData(userData);
+            bool result = userDataStorageClient.UpdateEntity(userDataEntity);
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
+            return result ? ReturnCode.Success : ReturnCode.Error;
         }
 
-        public UserDataModel Get(string userId)
+        // Ger user data for a user
+        public UserDataModel Get(string userEmail)
         {
-            var partitionKey = userId;
-            var userDataEntity = new UserDataEntity(userId);
+            var userDataEntity = new UserDataEntity(userEmail);
             var userDataStorageClient = StorageClient.GetStorage(StorageType.UserData);
             var entity = userDataStorageClient.GetEntity(userDataEntity);
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
+            return entity?.ToUserDataModel();
+        }
 
-            return entity == null ? null : entity.ToUserDataModel();
+        public void Options()
+        {
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, OPTIONS");
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", "Content-Type");
         }
     }
 }

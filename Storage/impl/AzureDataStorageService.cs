@@ -86,10 +86,26 @@ namespace Storage.impl
             return null;
         }
 
-        public bool HasEntity(TableEntity tableEntity)
+        private bool HasEntity(TableEntity tableEntity)
         {
             var entity = GetEntity(tableEntity);
             return (entity != null);
+        }
+
+        public bool HasEntity<T>(string partitionKey, string rowKey = null) where T : TableEntity
+        {
+            T result = default(T);
+            if (rowKey == null)
+            {
+                rowKey = partitionKey;
+            }
+            if (Table.Exists())
+            {
+                TableOperation op = TableOperation.Retrieve<T>(partitionKey, rowKey);
+                TableResult retrivedResult = Table.Execute(op);
+                result = (T)retrivedResult.Result;
+            }
+            return (result != null);
         }
 
         private bool InsertEntity(TableEntity e)
@@ -101,8 +117,7 @@ namespace Storage.impl
 
         private bool UpdateEntity(TableEntity e)
         {
-            //TODO: change to replace operation.
-            TableOperation op = TableOperation.InsertOrReplace(e);
+            TableOperation op = TableOperation.Replace(e);
             var entity = Table.Execute(op);
             return (entity.Result != null);
         }

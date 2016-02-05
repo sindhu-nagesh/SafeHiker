@@ -17,13 +17,13 @@ namespace SafeHikerService
 
             config.Routes.MapHttpRoute(
                 name: "SafeHikerHikeApi",
-                routeTemplate: "SafeHiker/Hikes/{userId}/{type}",
+                routeTemplate: "SafeHiker/Hikes/{userEmail}/{hikeStatus}",
                 defaults: new { controller = "Hikes", type = RouteParameter.Optional }
             );
 
             config.Routes.MapHttpRoute(
                 name: "SafeHikerUserApi",
-                routeTemplate: "SafeHiker/User/{userId}",
+                routeTemplate: "SafeHiker/User/{userEmail}",
                 defaults: new { controller = "User" }
             );
         }

@@ -1,24 +1,84 @@
-﻿@{
+﻿@Styles.Render("~/Content/jquery.datetimepicker.css")
+@Scripts.Render("~/bundles/myBundle")
+@using SafeHikerWebsite.Models
+@{
     ViewBag.Title = "Home Page";
 }
+@model User
+
+<input type="hidden" id="userEmail" value="@HttpContext.Current.User.Identity.Name">
 
 <div data-role="page" id="pageone">
+    Welcome
+</div>
+
+<div data-role="page" id="pagetwo">
     <div class="tophalf">
         <h1 class="header1 center">SafeHiker</h1>
     </div>
     <div class="bottomhalf">
-        @*        <p class="lead">Save your hike plans and notify contacts at a time specified by you.</p>*@
-        @**@
-        @*        <div class="center">*@
-        @*            <a class="button" href="#pagetwo" data-transition="fade" onclick="showpage2()">START</a>*@
-        @*        </div>*@
-        <p class="lead">Add your email and emergency contacts to start using the service.</p>
+        <p class="lead">
+            Hello @Model.Name
+            <br />
+            Add your name and emergency contacts to start using the service.
+        </p>
         <div class="center">
-            <a class="button" href="#pagetwo" data-transition="fade" onclick="showpage2()">START</a>
+            <a class="button" href="#pagefour" data-transition="fade" onclick="showpage('pagefour')">START</a>
         </div>
     </div>
 </div>
-<div data-role="page" id="pagetwo" style="display: none" class="formbackground">
+
+<div data-role="page" id="pagethree">
+    <div class="tophalf">
+        <h1 class="header1 center">SafeHiker</h1>
+    </div>
+    <div class="bottomhalf">
+        <p class="lead">
+            Hello @Model.Name
+            <br />
+            Add a new hike.
+        </p>
+        <div class="center">
+            <a class="button" href="#pagefive" data-transition="fade" onclick="showpage('pagefive')">START</a>
+        </div>
+    </div>
+</div>
+
+<div data-role="page" id="pagefour" style="display: none" class="formbackground">
+    <div class="lefthalf">
+    </div>
+    <div class="righthalf" style="margin-top: 50px">
+        <div class="header2 center">
+            Enter details
+        </div>
+        <form class="centerbox">
+            <table align="left" cellpadding="20">
+                <tr>
+                    <td colspan="2" style="padding-bottom: 20px" class="lead">Name</td>
+                    <td colspan="2" style="padding-bottom: 20px"><input type="text" name="hikename" size="40%"></td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" style="padding-bottom: 20px" class="lead">Emergency email 1</td>
+                    <td colspan="2" style="padding-bottom: 20px"><input type="email" placeholder="my@email.com" name="emergencyemail1" size="40%"></td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" style="padding-bottom: 20px" class="lead">Emergency email 2</td>
+                    <td colspan="2" style="padding-bottom: 20px"><input type="email" placeholder="my@email.com" name="emergencyemail2" size="40%"></td>
+                </tr>
+
+                <tr>
+                    <td align="center" colspan="2">
+                        <a class="button" href="#pagethree" data-transition="fade" onclick="showpage('pagethree')">Submit</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+<div data-role="page" id="pagefive" style="display: none" class="formbackground">
     <div class="lefthalf">
     </div>
     <div class="righthalf" style="margin-top: 50px">
@@ -26,11 +86,7 @@
             Enter Details
         </div>
         <form class="centerbox">
-            <table align="left" cellpadding="20">
-                <tr>
-                    <td colspan="2" style="padding-bottom: 20px" class="lead">Name</td>
-                    <td colspan="2" style="padding-bottom: 20px"><input type="text" name="name" size="40%"></td>
-                </tr>
+            <table align="left" cellpadding="10">
                 <tr>
                     <td colspan="2" style="padding-bottom: 20px" class="lead">Hike Name</td>
                     <td colspan="2" style="padding-bottom: 20px"><input type="text" name="hikename" size="40%"></td>
@@ -67,8 +123,8 @@
                 </tr>
 
                 <tr>
-                    <td align="center" colspan="2"><a class="button" href="#pageone" data-transition="fade" onclick="showpage1()">Save</a></td>
-                    <td align="center" colspan="2"><a class="button" href="#pageone" data-transition="fade" onclick="showpage1()">Clear</a></td>
+                    <td align="center" colspan="2"><a class="button" href="#pagethree" data-transition="fade" onclick="showpage('pagethree')">Save</a></td>
+                    <td align="center" colspan="2"><a class="button" href="#pagefive" data-transition="fade" onclick="showpage('pagefive')">Clear</a></td>
                 </tr>
             </table>
         </form>
