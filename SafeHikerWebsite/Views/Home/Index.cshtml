@@ -1,5 +1,6 @@
 ﻿@Styles.Render("~/Content/jquery.datetimepicker.css")
 @Scripts.Render("~/bundles/myBundle")
+
 @using SafeHikerWebsite.Models
 @{
     ViewBag.Title = "Home Page";
@@ -47,30 +48,49 @@
 <div data-role="page" id="pagefour" style="display: none" class="formbackground">
     <div class="lefthalf">
     </div>
-    <div class="righthalf" style="margin-top: 50px">
+    <div class="righthalf" style="top: 50px">
         <div class="header2 center">
-            Enter details
+            Enter your details
         </div>
         <form class="centerbox">
-            <table align="left" cellpadding="20">
+            <table align="left" cellpadding="10">
                 <tr>
-                    <td colspan="2" style="padding-bottom: 20px" class="lead">Name</td>
-                    <td colspan="2" style="padding-bottom: 20px"><input type="text" name="hikename" size="40%"></td>
+                    <td colspan="2" style="padding-bottom: 20px" class="lead">
+                        Name
+                    </td>
+                    <td colspan="2" style="padding-bottom: 20px">
+                        <input type="text" data-bind="value: UserData.name" size="40%">
+                    </td>
                 </tr>
 
                 <tr>
-                    <td colspan="2" style="padding-bottom: 20px" class="lead">Emergency email 1</td>
-                    <td colspan="2" style="padding-bottom: 20px"><input type="email" placeholder="my@email.com" name="emergencyemail1" size="40%"></td>
+                    <td colspan="2" style="padding-bottom: 20px" class="lead">
+                        Emergency email 1
+                    </td>
+                    <td colspan="2" style="padding-bottom: 20px">
+                        <input type="email" placeholder="my@email.com" data-bind="value: UserData.emergencyEmail1" size="40%">
+                    </td>
                 </tr>
 
                 <tr>
-                    <td colspan="2" style="padding-bottom: 20px" class="lead">Emergency email 2</td>
-                    <td colspan="2" style="padding-bottom: 20px"><input type="email" placeholder="my@email.com" name="emergencyemail2" size="40%"></td>
+                    <td colspan="2" style="padding-bottom: 20px" class="lead">
+                        Emergency email 2
+                    </td>
+                    <td colspan="2" style="padding-bottom: 20px">
+                        <input type="email" placeholder="my@email.com" data-bind="value: UserData.emergencyEmail2" size="40%">
+                    </td>
                 </tr>
 
                 <tr>
                     <td align="center" colspan="2">
-                        <a class="button" href="#pagethree" data-transition="fade" onclick="showpage('pagethree')">Submit</a>
+                        <a class="button" href="#pagethree" onclick="showpage('pagethree')">
+                            Submit
+                        </a>
+                    </td>
+                    <td align="center" colspan="2">
+                        <a class="button" href="#pagefour" onclick="clearUserData()">
+                            Clear
+                        </a>
                     </td>
                 </tr>
             </table>
@@ -83,48 +103,74 @@
     </div>
     <div class="righthalf" style="margin-top: 50px">
         <div class="header2 center">
-            Enter Details
+            Enter hike Details
         </div>
         <form class="centerbox">
             <table align="left" cellpadding="10">
                 <tr>
-                    <td colspan="2" style="padding-bottom: 20px" class="lead">Hike Name</td>
-                    <td colspan="2" style="padding-bottom: 20px"><input type="text" name="hikename" size="40%"></td>
+                    <td colspan="2" style="padding-bottom: 20px" class="lead">
+                        Hike Name
+                    </td>
+                    <td colspan="2" style="padding-bottom: 20px">
+                        <input type="text" data-bind="value: HikeData.hikeName" size="40%">
+                    </td>
                 </tr>
 
                 <tr>
-                    <td colspan="2" style="padding-bottom: 20px" class="lead">Emergency email 1</td>
-                    <td colspan="2" style="padding-bottom: 20px"><input type="email" placeholder="my@email.com" name="emergencyemail1" size="40%"></td>
+                    <td colspan="2" style="padding-bottom: 20px" class="lead">
+                        Emergency email 1
+                    </td>
+                    <td colspan="2" style="padding-bottom: 20px">
+                        <input type="email" placeholder="my@email.com" data-bind="value: HikeData.emergencyEmail1" size="40%">
+                    </td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="padding-bottom: 20px" class="lead">Emergency email 2</td>
-                    <td colspan="2" style="padding-bottom: 20px"><input type="email" placeholder="my@email.com" name="emergencyemail2" size="40%"></td>
+                    <td colspan="2" style="padding-bottom: 20px" class="lead">
+                        Emergency email 2
+                    </td>
+                    <td colspan="2" style="padding-bottom: 20px">
+                        <input type="email" placeholder="my@email.com" data-bind="value: HikeData.emergencyEmail2" size="40%">
+                    </td>
                 </tr>
 
                 <tr>
                     <td colspan="2" class="lead" style="padding-bottom: 20px">
                         <span>Start date and time</span><br />
                     </td>
-                    <td><input class="datetime" id="startdatetime" /></td>
+                    <td>
+                        <input class="datetime" data-bind="value: HikeData.startDateAndTime" />
+                    </td>
                 </tr>
 
                 <tr>
                     <td colspan="2" class="lead" style="padding-bottom: 20px">
                         <span>End date and time</span><br />
                     </td>
-                    <td><input class="datetime" id="enddatetime" /></td>
+                    <td>
+                        <input class="datetime" data-bind="value: HikeData.endDateAndTime" />
+                    </td>
                 </tr>
 
                 <tr>
                     <td colspan="2" class="lead" style="padding-bottom: 20px">
-                        <span>Alert Contacts date and time</span><br />
+                        <span>Notify Contacts date and time</span><br />
                     </td>
-                    <td><input class="datetime" id="alertdatetime" /></td>
+                    <td>
+                        <input class="datetime" data-bind="value: HikeData.notifyDateAndTime" />
+                    </td>
                 </tr>
 
                 <tr>
-                    <td align="center" colspan="2"><a class="button" href="#pagethree" data-transition="fade" onclick="showpage('pagethree')">Save</a></td>
-                    <td align="center" colspan="2"><a class="button" href="#pagefive" data-transition="fade" onclick="showpage('pagefive')">Clear</a></td>
+                    <td align="center" colspan="2">
+                        <a class="button" href="#pagethree" data-transition="fade" onclick="showpage('pagethree')">
+                            Save
+                        </a>
+                    </td>
+                    <td align="center" colspan="2">
+                        <a class="button" href="#pagefive" data-transition="fade" onclick="clearHikeData()">
+                            Clear
+                        </a>
+                    </td>
                 </tr>
             </table>
         </form>

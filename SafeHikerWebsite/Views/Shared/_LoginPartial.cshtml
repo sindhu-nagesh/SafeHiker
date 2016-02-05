@@ -6,7 +6,7 @@
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
-            <li>@Html.ActionLink("My Hikes", "MyHikes", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+            <li>@Html.ActionLink("My Hikes", "MyHikes", "MyHikes", routeValues: null, htmlAttributes: new { id = "myHikesLink" })</li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>
     }
