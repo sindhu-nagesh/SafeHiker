@@ -52,7 +52,7 @@ namespace SafeHikerService.Controllers
             var userDataStorageClient = StorageClient.GetStorage(StorageType.UserData);
             var entity = userDataStorageClient.GetEntity(userDataEntity);
             HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
-            return entity?.ToUserDataModel();
+            return entity == null ? new UserDataModel() : entity.ToUserDataModel();
         }
 
         public void Options()

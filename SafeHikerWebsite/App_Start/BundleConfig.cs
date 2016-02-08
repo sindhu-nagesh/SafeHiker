@@ -26,13 +26,23 @@ namespace SafeHikerWebsite
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/myBundle").Include(
+            bundles.Add(new ScriptBundle("~/bundles/commonBundle").Include(
                                         "~/Scripts/jquery-{version}.js",
                                         "~/Scripts/jquery-ui-{version}.js",
                                         "~/Scripts/jquery.datetimepicker.js",
-                                        "~/Scripts/knockout-3.4.0.js",
-                                        "~/ViewModels/UserViewModel.js"
+                                        "~/Scripts/knockout-3.4.0.js"
                                         ));
+
+            bundles.Add(new ScriptBundle("~/bundles/myHikesBundle").Include(
+                                        "~/ViewModels/Shared/SharedViewModel.js",
+                                        "~/ViewModels/MyHikesViewModel.js"
+                                        ));
+
+            bundles.Add(new ScriptBundle("~/bundles/addHikeBundle").Include(
+                                       "~/ViewModels/Shared/SharedViewModel.js",
+                                       "~/ViewModels/UserViewModel.js",
+                                       "~/ViewModels/AddHikeViewModel.js"
+                                       ));
         }
     }
 }
