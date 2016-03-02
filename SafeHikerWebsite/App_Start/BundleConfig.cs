@@ -35,13 +35,14 @@ namespace SafeHikerWebsite
 
             bundles.Add(new ScriptBundle("~/bundles/myHikesBundle").Include(
                                         "~/ViewModels/Shared/SharedViewModel.js",
-                                        "~/ViewModels/MyHikesViewModel.js"
+                                        "~/ViewModels/MyHikes/MyHikesViewModel.js"
                                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/addHikeBundle").Include(
                                        "~/ViewModels/Shared/SharedViewModel.js",
-                                       "~/ViewModels/UserViewModel.js",
-                                       "~/ViewModels/AddHikeViewModel.js"
+                                       "~/ViewModels/AddHike/CommonViewModel.js",
+                                       "~/ViewModels/AddHike/UserViewModel.js",
+                                       "~/ViewModels/AddHike/HikeViewModel.js"
                                        ));
         }
     }

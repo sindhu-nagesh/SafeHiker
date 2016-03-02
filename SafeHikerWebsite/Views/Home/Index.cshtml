@@ -6,13 +6,12 @@
 @{
     ViewBag.Title = "Home Page";
 }
-@model User
 
 <input type="hidden" id="userEmail" value="@HttpContext.Current.User.Identity.Name">
 
 @Html.Partial("WelcomePage")
 @Html.Partial("ErrorPage")
+@Html.Partial("AddUserPage")
 @Html.Partial("AddUserDetailsPage")
 @Html.Partial("AddHikePage")
-@Html.Partial("AddUserDataPage")
 @Html.Partial("AddHikeDetailsPage")

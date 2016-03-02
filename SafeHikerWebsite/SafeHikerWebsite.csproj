@@ -333,10 +333,10 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="ViewModels\AddHikeViewModel.js" />
-    <Content Include="ViewModels\MyHikesViewModel.js" />
+    <Content Include="ViewModels\AddHike\HikeViewModel.js" />
+    <Content Include="ViewModels\MyHikes\MyHikesViewModel.js" />
     <Content Include="ViewModels\Shared\SharedViewModel.js" />
-    <Content Include="ViewModels\UserViewModel.js" />
+    <Content Include="ViewModels\AddHike\UserViewModel.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -377,12 +377,13 @@
     <Content Include="Views\MyHikes\HikesViewPage.cshtml" />
     <Content Include="Views\Shared\NewHikeForm.cshtml" />
     <Content Include="Views\MyHikes\EditHikePopUp.cshtml" />
-    <Content Include="Views\Home\AddUserDetailsPage.cshtml" />
+    <Content Include="Views\Home\AddUserPage.cshtml" />
     <Content Include="Views\Home\AddHikePage.cshtml" />
-    <Content Include="Views\Home\AddUserDataPage.cshtml" />
+    <Content Include="Views\Home\AddUserDetailsPage.cshtml" />
     <Content Include="Views\Home\AddHikeDetailsPage.cshtml" />
     <Content Include="Views\Home\ErrorPage.cshtml" />
     <Content Include="Views\Home\WelcomePage.cshtml" />
+    <Content Include="ViewModels\AddHike\CommonViewModel.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
