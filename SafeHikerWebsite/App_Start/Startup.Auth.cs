@@ -2,7 +2,6 @@
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.Google;
 using Owin;
 using SafeHikerWebsite.Models;
 using System;
@@ -58,11 +57,11 @@ namespace SafeHikerWebsite
                appId: "457017814492796",
                appSecret: "ca4337ef0c32cfb9941b3d46b37c511b");
 
-            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            {
-                ClientId = "10325515158-rq8pi6tludvargsfrknun0rvuircgnus.apps.googleusercontent.com",
-                ClientSecret = "PvzvaOFOpE0BVM1X0tvW5n1f"
-            });
+            //            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            //            {
+            //                ClientId = "10325515158-rq8pi6tludvargsfrknun0rvuircgnus.apps.googleusercontent.com",
+            //                ClientSecret = "PvzvaOFOpE0BVM1X0tvW5n1f",
+            //            });
         }
     }
 }

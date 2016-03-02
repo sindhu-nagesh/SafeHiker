@@ -8,7 +8,7 @@ namespace SafeHikerWebsite
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js", "~/Scripts/jquery-ui-{version}.js", "~/Scripts/jquery.datetimepicker.js"));
+                "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -26,8 +26,24 @@ namespace SafeHikerWebsite
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/myScripts").Include(
-                       "~/Scripts/myScripts.js"));
+            bundles.Add(new ScriptBundle("~/bundles/commonBundle").Include(
+                                        "~/Scripts/jquery-{version}.js",
+                                        "~/Scripts/jquery-ui-{version}.js",
+                                        "~/Scripts/jquery.datetimepicker.js",
+                                        "~/Scripts/knockout-3.4.0.js"
+                                        ));
+
+            bundles.Add(new ScriptBundle("~/bundles/myHikesBundle").Include(
+                                        "~/ViewModels/Shared/SharedViewModel.js",
+                                        "~/ViewModels/MyHikes/MyHikesViewModel.js"
+                                        ));
+
+            bundles.Add(new ScriptBundle("~/bundles/addHikeBundle").Include(
+                                       "~/ViewModels/Shared/SharedViewModel.js",
+                                       "~/ViewModels/AddHike/CommonViewModel.js",
+                                       "~/ViewModels/AddHike/UserViewModel.js",
+                                       "~/ViewModels/AddHike/HikeViewModel.js"
+                                       ));
         }
     }
 }

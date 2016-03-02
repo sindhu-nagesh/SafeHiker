@@ -17,6 +17,16 @@
     color: black;
 }
 
+.header3 {
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 80px;
+    font-size: 30px;
+    font-weight: 200;
+    line-height: 2.1428571435;
+    color: black;
+}
+
 .center {
     text-align: center;
 }
@@ -57,11 +67,17 @@
     cursor: pointer;
 }
 
+.mousepointer {
+    border: none;
+    color: blue;
+    cursor: pointer;
+}
+
 .lefthalf {
     position: absolute;
-    top: 0;
-    right: 70%;
     left: 0;
+    right: 70%;
+    top: 0;
     bottom: 0;
     background-image: url(../Images/green1.png);
     background-size: cover;
@@ -69,10 +85,10 @@
 
 .righthalf {
     position: absolute;
-    top: 0;
     right: 0;
-    left: 30%;
+    top: 0;
     bottom: 0;
+    left: 30%;
     background-color: antiquewhite;
 }
 
@@ -92,4 +108,43 @@
     height: 40%;
     left: 20%;
     top: 15%;
+}
+
+.hikeslefthalf {
+    position: absolute;
+    left: 0;
+    right: 75%;
+    top: 0;
+    bottom: 0;
+    background-color: darkseagreen;
+}
+
+.hikesrighthalf {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: 25%;
+    background-color: antiquewhite;
+}
+
+.boldlead {
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.4;
+}
+
+.tbl {
+    width: 100%;
+    table-layout: fixed;
+    word-wrap: break-word;
+    margin-left: 15px;
+}
+
+.smalllead {
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 200;
+    line-height: 1.4;
 }

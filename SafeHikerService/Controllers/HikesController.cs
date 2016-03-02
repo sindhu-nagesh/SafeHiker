@@ -2,7 +2,6 @@
 using SafeHikerService.Models;
 using SafeHikerService.TableEntities;
 using Storage;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -12,37 +11,56 @@ namespace SafeHikerService.Controllers
     public class HikesController : ApiController
     {
         private static AzureStorageServiceClient StorageClient { get; }
+        private static IDataStorageService NotifyUserStorageClient { get; }
+        private static IDataStorageService NotifyEmergencyStorageClient { get; }
+        private static IDataStorageService UserHikeStorageClient { get; }
 
         static HikesController()
         {
             StorageClient = ServiceFactory.GetStorageClient();
+            NotifyUserStorageClient = StorageClient.GetStorage(StorageType.NotifyUser);
+            NotifyEmergencyStorageClient = StorageClient.GetStorage(StorageType.NotifyEmergency);
+            UserHikeStorageClient = StorageClient.GetStorage(StorageType.UserHikesData);
         }
 
-        public ReturnCode Post(string userId, [FromBody] HikeDataModel hikeData)
+        // Add a hike for a user
+        public ReturnCode Post(string userEmail, [FromBody] HikeDataModel hikeData)
         {
-            var hikeDataStorageClient = StorageClient.GetStorage(StorageType.UpcomingHike);
-            var userHikeStorageClient = StorageClient.GetStorage(StorageType.UserHikesData);
-            var notifyUserEntity = new HikeDataEntity(userId, hikeData, NotifyType.NotifyUser);
-            var notifyEmergencyContactEntity = new HikeDataEntity(userId, hikeData, NotifyType.NotifyEmergencyContact);
-            var userHikeEntity = new UserHikeEntity(userId, HikeStatus.Upcoming, hikeData);
-            if (hikeDataStorageClient.HasEntity(notifyUserEntity) ||
-                hikeDataStorageClient.HasEntity(notifyEmergencyContactEntity) ||
-               userHikeStorageClient.HasEntity(userHikeEntity))
+            if (NotifyUserStorageClient.HasEntity<HikeDataEntity>(hikeData.EndDateAndTime, userEmail) ||
+                NotifyEmergencyStorageClient.HasEntity<HikeDataEntity>(hikeData.NotifyEmergencyContactDateAndTime, userEmail) ||
+               UserHikeStorageClient.HasEntity<UserHikeEntity>(userEmail, hikeData.EndDateAndTime))
             {
                 return ReturnCode.Duplicate;
             }
-            hikeDataStorageClient.InsertEntity(notifyUserEntity);
-            hikeDataStorageClient.InsertEntity(notifyEmergencyContactEntity);
-            userHikeStorageClient.InsertEntity(userHikeEntity);
-            return ReturnCode.Success;
+            NotifyUserStorageClient.InsertEntity(new NotifyUserHikeDataEntity(userEmail, hikeData));
+            NotifyEmergencyStorageClient.InsertEntity(new NotifyEmergencyHikeDataEntity(userEmail, hikeData));
+            var result = UserHikeStorageClient.InsertEntity(new UserHikeEntity(userEmail, hikeData, HikeStatus.Upcoming));
+
+            return result ? ReturnCode.Success : ReturnCode.Error;
         }
 
-        public List<HikeDataModel> Get(string userId, string type)
+        //Return all the hikes for a user
+        public List<HikeDataModel> Get(string userEmail, string hikeStatus)
         {
-            var partitionKey = userId + " " + type;
-            var storageType = (StorageType)Enum.Parse(typeof(StorageType), type);
-            var entities = StorageClient.GetStorage(storageType).GetEntities<HikeDataEntity>(partitionKey);
+            var partitionKey = userEmail;
+            var entities = UserHikeStorageClient.GetEntities<UserHikeEntity>(partitionKey);
             return entities.Select(entity => entity.ToHikeDataModel()).ToList();
+        }
+
+        // Update a hike for a user
+        public ReturnCode Put(string userEmail, [FromBody] HikeDataModel hikeData)
+        {
+            if (!NotifyUserStorageClient.HasEntity<HikeDataEntity>(hikeData.EndDateAndTime, userEmail) ||
+                !NotifyEmergencyStorageClient.HasEntity<HikeDataEntity>(hikeData.NotifyEmergencyContactDateAndTime, userEmail) ||
+               !UserHikeStorageClient.HasEntity<UserHikeEntity>(userEmail, hikeData.EndDateAndTime))
+            {
+                return ReturnCode.DoesNotExist;
+            }
+            NotifyUserStorageClient.UpdateEntity(new NotifyUserHikeDataEntity(userEmail, hikeData));
+            NotifyEmergencyStorageClient.UpdateEntity(new NotifyEmergencyHikeDataEntity(userEmail, hikeData));
+            var result = UserHikeStorageClient.UpdateEntity(new UserHikeEntity(userEmail, hikeData, HikeStatus.Upcoming));
+
+            return result ? ReturnCode.Success : ReturnCode.Error;
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Storage
 {
     public interface IDataStorageService
     {
-        bool HasEntity(TableEntity tableEntity);
+        bool HasEntity<T>(string partitionKey, string rowKey) where T : TableEntity;
 
         bool InsertEntity<T>(T entity);
 

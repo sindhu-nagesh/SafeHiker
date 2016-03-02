@@ -5,14 +5,9 @@ namespace SafeHikerService.TableEntities
 {
     public class UserDataEntity : TableEntity
     {
-        //public Guid UserGuid;
-        //public string UserName;
-        public string UserEmail;
-
-        public string EmergencyContact1;
-        public string EmergencyEmail1;
-        public string EmergencyContact2;
-        public string EmergencyEmail2;
+        private string Name { get; }
+        private string EmergencyEmail1 { get; set; }
+        private string EmergencyEmail2 { get; set; }
 
         public UserDataEntity()
         {
@@ -24,13 +19,12 @@ namespace SafeHikerService.TableEntities
             RowKey = userEmail;
         }
 
-        public UserDataEntity(UserDataModel userData)
+        public UserDataEntity(string userEmail, UserDataModel userData)
         {
-            PartitionKey = userData.UserEmail;
-            RowKey = userData.UserEmail;
-            EmergencyContact1 = userData.EmergencyContact1;
+            PartitionKey = userEmail;
+            RowKey = userEmail;
+            Name = userData.Name;
             EmergencyEmail1 = userData.EmergencyEmail1;
-            EmergencyContact2 = userData.EmergencyContact2;
             EmergencyEmail2 = userData.EmergencyEmail2;
         }
 
@@ -38,12 +32,16 @@ namespace SafeHikerService.TableEntities
         {
             return new UserDataModel
             {
-                UserEmail = this.UserEmail,
-                EmergencyContact1 = EmergencyContact1,
+                Name = Name,
                 EmergencyEmail1 = EmergencyEmail1,
-                EmergencyContact2 = EmergencyContact2,
                 EmergencyEmail2 = EmergencyEmail2
             };
+        }
+
+        public void UpdateEntityData(UserDataModel userData)
+        {
+            EmergencyEmail1 = userData.EmergencyEmail1;
+            EmergencyEmail2 = userData.EmergencyEmail2;
         }
     }
 }

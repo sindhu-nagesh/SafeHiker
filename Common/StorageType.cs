@@ -2,8 +2,8 @@
 {
     public enum StorageType
     {
-        UpcomingHike,
-        CompletedHike,
+        NotifyUser,
+        NotifyEmergency,
         UserData,
         UserHikesData
     }
